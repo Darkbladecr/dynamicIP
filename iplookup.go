@@ -6,7 +6,7 @@ import (
 )
 
 func saveIP(ip string) {
-	f, err := os.Create("ip.txt")
+	f, err := os.Create("/home/darkbladecr/go/src/github.com/darkbladecr/dynamicIP/ip.txt")
 	if err != nil {
 		panic(err)
 	}
@@ -20,7 +20,7 @@ func saveIP(ip string) {
 }
 
 func getOldIP() string {
-	ip, err := ioutil.ReadFile("ip.txt")
+	ip, err := ioutil.ReadFile("/home/darkbladecr/go/src/github.com/darkbladecr/dynamicIP/ip.txt")
 	if err != nil {
 		return ""
 	}
