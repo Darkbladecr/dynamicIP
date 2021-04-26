@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
 
@@ -22,7 +23,8 @@ func getCFRecords(zoneName string, ip string) []cloudflare.DNSRecord {
 	if err != nil {
 		log.Fatal(err)
 	}
-	recs, err := cfAPI.DNSRecords(zoneID, cloudflare.DNSRecord{Content: ip})
+	ctx := context.Background()
+	recs, err := cfAPI.DNSRecords(ctx, zoneID, cloudflare.DNSRecord{Content: ip})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -32,7 +34,8 @@ func getCFRecords(zoneName string, ip string) []cloudflare.DNSRecord {
 func updateCFRecords(recs []cloudflare.DNSRecord, ip string) {
 	for _, rec := range recs {
 		rec.Content = ip
-		err := cfAPI.UpdateDNSRecord(rec.ZoneID, rec.ID, rec)
+		ctx := context.Background()
+		err := cfAPI.UpdateDNSRecord(ctx, rec.ZoneID, rec.ID, rec)
 		if err != nil {
 			log.Fatal(err)
 		}
